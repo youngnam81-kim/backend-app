@@ -14,6 +14,11 @@ public class P6SpyFormatter implements MessageFormattingStrategy {
     public String formatMessage(int connectionId, String now, long elapsed, String category, String prepared, String sql, String url) {
         sql = formatSql(category, sql);
         
+        if (Category.COMMIT.getName().equals(category) || 
+                Category.STATEMENT.getName().equals(category)) {
+                return "";  // 빈 문자열 반환하여 로그 출력 안 함
+        }
+        
         Date _now = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         
